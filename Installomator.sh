@@ -348,7 +348,7 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
         rosetta2=no
     fi
 fi
-VERSION="10.9beta-lb"
+VERSION="LB10.10"
 VERSIONDATE="2025-06-24"
 
 # MARK: Functions
@@ -1848,7 +1848,7 @@ adobereaderdc-update)
       mkdir -p "/Library/Application Support/Adobe/Acrobat/11.0"
       defaults write "/Library/Application Support/Adobe/Acrobat/11.0/com.adobe.Acrobat.InstallerOverrides.plist" ReaderAppPath "$readerPath"
       defaults write "/Library/Application Support/Adobe/Acrobat/11.0/com.adobe.Acrobat.InstallerOverrides.plist" BreakIfAppPathInvalid -bool false
-      printlog "Adobe Reader Installed, running updater." INFO
+      printlog "Adobe Reader Installed, running updaxter." INFO
       adobecurrent=$(curl -sL https://armmf.adobe.com/arm-manifests/mac/AcrobatDC/reader/current_version.txt)
       adobecurrentmod="${adobecurrent//.}"
       if [[ "${adobecurrentmod}" != <-> ]]; then
@@ -3643,6 +3643,12 @@ cyberduck)
     downloadURL=$(curl -fs https://version.cyberduck.io/changelog.rss | xpath '//rss/channel/item/enclosure/@url' 2>/dev/null | cut -d '"' -f 2 )
     appNewVersion=$(curl -fs https://version.cyberduck.io/changelog.rss | xpath '//rss/channel/item/enclosure/@sparkle:shortVersionString' 2>/dev/null | cut -d '"' -f 2 )
     expectedTeamID="G69SCX94XU"
+    ;;
+cybersmart)
+    name="Cybersmart Active Protect"
+    type="dmg"
+    downloadURL=https://cs-prod-macos-distribution.cybersmart.co.uk/build/bf598399-fe8e-4439-87ff-9b33dbd40a10
+    expectedTeamID="5SF4ZAD2B5"    
     ;;
 cycling74max)
     name="Max"
