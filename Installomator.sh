@@ -3647,7 +3647,7 @@ cyberduck)
 cybersmart)
     name="Cybersmart Active Protect"
     type="dmg"
-    downloadURL=https://cs-prod-macos-distribution.cybersmart.co.uk/build/bf598399-fe8e-4439-87ff-9b33dbd40a10
+    downloadURL="https://cs-prod-macos-distribution.cybersmart.co.uk/build/bf598399-fe8e-4439-87ff-9b33dbd40a10"
     CLIInstaller="CSOnlineInstaller.app/Contents/Library/LaunchServices/uk.co.cybersmart.CSInstallerHelper"
     CLIArguments=(--install)
     expectedTeamID="5SF4ZAD2B5"    
