@@ -27,7 +27,7 @@ export PATH=/usr/bin:/bin:/usr/sbin:/sbin
 # also no actual installation will be performed
 # debug mode 1 will download to the directory the script is run in, but will not check the version
 # debug mode 2 will download to the temp directory, check for blocking processes, check the version, but will not install anything or remove the current version
-DEBUG=1
+DEBUG=0
 
 # notify behavior
 NOTIFY=success
@@ -3644,15 +3644,20 @@ cyberduck)
     appNewVersion=$(curl -fs https://version.cyberduck.io/changelog.rss | xpath '//rss/channel/item/enclosure/@sparkle:shortVersionString' 2>/dev/null | cut -d '"' -f 2 )
     expectedTeamID="G69SCX94XU"
     ;;
-cybersmart)
-    name="CyberSmart Active Protect"
+cybersmart) 
+    name="Cybersmart Active Protect"
+    appName="CyberSmartActiveProtect.app"
     type="dmg"
-    archiveName="CyberSmart Active Protect Installer.dmg"
-    downloadURL="https://cs-prod-macos-distribution.cybersmart.co.uk/build/bf598399-fe8e-4439-87ff-9b33dbd40a10"
+    if [[ -z $cybersmartKey ]]; then
+        cleanupAndExit 89 "This label requires more parameters: cybersmartKey is required. "
+    fi
+    downloadURL=https://cs-prod-macos-distribution.cybersmart.co.uk/build/
+    downloadURL+=$cybersmartKey
+    installerTool="CSOnlineInstaller.app"
     CLIInstaller="CSOnlineInstaller.app/Contents/Library/LaunchServices/uk.co.cybersmart.CSInstallerHelper"
-    CLIArguments=(--install)
-    expectedTeamID="5SF4ZAD2B5"    
-    ;;
+    CLIArguments=(--install --force)
+    expectedTeamID="5SF4ZAD2B5"
+;;
 cycling74max)
     name="Max"
     type="dmg"
