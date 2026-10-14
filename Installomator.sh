@@ -348,8 +348,8 @@ if [[ $(/usr/bin/arch) == "arm64" ]]; then
         rosetta2=no
     fi
 fi
-VERSION="10.9-lb2"
-VERSIONDATE="2025-07-10"
+VERSION="10.9-lb3"
+VERSIONDATE="2026-10-14"
 
 # MARK: Functions
 
@@ -9569,11 +9569,11 @@ taskpaper)
 teamviewer)
     name="TeamViewer"
     type="pkgInDmg"
-    # packageID="com.teamviewer.teamviewer"
     versionKey="CFBundleShortVersionString"
     pkgName="Install TeamViewer.app/Contents/Resources/Install TeamViewer.pkg"
-    downloadURL="https://download.teamviewer.com/download/TeamViewer.dmg"
-    appNewVersion=$(curl -fs "https://www.teamviewer.com/en/download/macos/" | grep "Current version" | awk -F': ' '{ print $2 }' | sed 's/<[^>]*>//g')
+    teamViewerDownloadData=$(curl -fsL "https://www.teamviewer.com/en/download/macos/" | tr "<" "\n<" | grep "cmp-smartdownloadbutton__wrapper" | grep "TeamViewer full client" | sed -E 's/.*data-json="([^"]*)".*/\1/;s/&quot;/"/g;s/&amp;/\&/g')
+    downloadURL=$(getJSONValue "$teamViewerDownloadData" "data[0].downloadLink")
+    appNewVersion=$(getJSONValue "$teamViewerDownloadData" "data[0].versionNumber")
     expectedTeamID="H7UGFBUGV6"
     ;;
 teamviewerhost)
